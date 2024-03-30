@@ -6,11 +6,16 @@ def text_on_image(image, text, font_size, color):
     font = ImageFont.truetype('arial.ttf', font_size)
     draw = ImageDraw.Draw(img)
 
-    iw, ih = img.size
-    fw, fh = font.getsize(text)
+    image_width, image_height = img.size
+    # old way using getsize()
+    #text_width, text_height = font.getsize(text)
+    # using pillow 10+
+    left, top, right, bottom = font.getbbox(text)
+    text_width = right - left
+    text_height = bottom - top
 
     draw.text(
-        ((iw - fw) / 2, (ih - fh) / 2),
+        ((image_width - text_width) / 2, (image_height - text_height) / 2),
         text,
         fill=color,
         font=font
@@ -18,10 +23,12 @@ def text_on_image(image, text, font_size, color):
 
     img.save('last_image.jpg')
 
+    img.save('last_image.jpg')
+
 image = st.file_uploader("Uma imagem", type=['jpg'])
 text = st.text_input('Sua marca dágua')
 color = st.color_picker('Escolha uma cor')
-font_size = st.number_input('Tamanho da fonte', min_value=30)
+font_size = st.number_input('Tamanho da fonte', min_value=50)
 
 if image:
     result = st.button( 
