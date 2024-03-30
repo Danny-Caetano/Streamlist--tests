@@ -7,9 +7,6 @@ def text_on_image(image, text, font_size, color):
     draw = ImageDraw.Draw(img)
 
     image_width, image_height = img.size
-    # old way using getsize()
-    #text_width, text_height = font.getsize(text)
-    # using pillow 10+
     left, top, right, bottom = font.getbbox(text)
     text_width = right - left
     text_height = bottom - top
