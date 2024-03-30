@@ -49,8 +49,3 @@ if image:
             )        
 else:
     st.warning('Ainda não temos uma imagem!')
-
-
-
-
-
